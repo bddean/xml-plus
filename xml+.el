@@ -1,3 +1,18 @@
+;;; xml+.el --- Utilities for xml and html trees
+
+;; Author: Ben Dean <bendean837@gmail.com>
+;; Version: 0.0.0
+;; Package-Requires: ((cl) (dash))
+;; Keywords: xml, html
+;; URL: https://github.com/bddean/xml-plus
+
+;;; Commentary:
+
+;; Utility functions for xml parse trees.
+;;  - `xml+-query-all' and `xml+-query-first' are query functions search direct
+;;    and indirect descendants in node lists
+;;  - `xml+-node-text' gets node text
+
 (require 'cl)
 (require 'dash)
 
