@@ -17,6 +17,8 @@
 
 (require 'cl)
 (require 'dash)
+(require 'subr-x)
+(require 'xml)
 
 (defun xml+--node-matches (node matcher)
   "Return non-nil if xml/html node NODE matches query selector
@@ -69,7 +71,7 @@ NODES matching QUERY."
 	;; Make cons cell to store a persistent reference to the result
   (unless result (setq result (cons nil nil)))
   (if (equal (car query) '>)
-      (xml+-select nodes (cdr query) result t)
+      (xml+-query--generic just-one nodes (cdr query) result t)
     (when (eq (type-of (car nodes)) 'symbol)
       (setq nodes (list nodes)))
 
@@ -85,7 +87,7 @@ NODES matching QUERY."
               (when just-one (setq nodes-remaining nil)))
           (unless must-be-root
             (xml+-query--generic just-one (xml-node-children node) query result)))))
-    (cdr (reverse result))))
+    (reverse (cdr result))))
 
 (defun xml+-query-all (nodes query &optional must-be-root)
 	"Search NODES for matches.
@@ -112,12 +114,18 @@ See also `xml-node-matches'"
 
 (defun xml+-node-text (node)
   "Get the text of NODE"
+  (string-trim
+   (replace-regexp-in-string "[\s\t\n]+" " "
+                             (mapconcat 'concat (xml+-node-text--helper node) " "))))
+
+(defun xml+-node-text--helper (node)
+  "Get the text of NODE"
   (if (stringp node)
-      node
-    (-reduce (lambda (&optional n1 n2)
-               (if n1
-                   (concat (xml-node-text n1) (xml-node-text n2))
-                 ""))
-             (xml-node-children node))))
+      (list node)
+    (-reduce-from
+     (lambda (n1 n2) (append n1 (xml+-node-text--helper n2)))
+     nil
+     (xml-node-children node))))
 
 (provide 'xml+)
+;;; xml+.el ends here
