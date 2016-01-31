@@ -2,7 +2,7 @@
 
 ;; Author: Ben Dean <bendean837@gmail.com>
 ;; Version: 0.0.0
-;; Package-Requires: ((cl) (dash))
+;; Package-Requires: ((emacs "24.4") (cl-lib "0.5") (dash "2.12.0"))
 ;; Keywords: xml, html
 ;; URL: https://github.com/bddean/xml-plus
 
@@ -14,7 +14,9 @@
 ;;
 ;;  - `xml+-node-text' gets node text
 
-(require 'cl)
+;;; Code:
+
+(require 'cl-lib)
 (require 'dash)
 (require 'subr-x)
 (require 'xml)
@@ -43,7 +45,7 @@ any of its members.
           (setq matcher (cdr matcher)))
 
         (when (and matcher
-                   (not (keywordp (first matcher))))
+                   (not (keywordp (cl-first matcher))))
           (setq tags (-flatten (list (pop matcher)))))
 
         (not (equal ;; xor
