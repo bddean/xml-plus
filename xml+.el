@@ -9,10 +9,9 @@
 ;;; Commentary:
 
 ;; Utility functions for xml parse trees. 
-;;  - `xml+-query-all' and `xml+-query-first' are query functions search direct
-;;    and indirect descendants in node lists
+;;  - `xml+-query-all' and `xml+-query-first' are query functions that search
+;;     descendants in node lists. They don't work with namespace-aware parsing yet
 ;;
-;;    Note: the query functions don't yet work with namespace-aware parsing
 ;;  - `xml+-node-text' gets node text
 
 (require 'cl)
