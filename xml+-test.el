@@ -1,9 +1,9 @@
-(defun test-xml+-parse-string (str)
+(defun xml+-test-parse-string (str)
   (with-temp-buffer
     (insert str)
     (xml-parse-region (point-min) (point-max))))
 
-(defvar test-xml+-sample1 (test-xml+-parse-string
+(defvar xml+-test-sample1 (xml+-test-parse-string
                            "<html>
     <body>
         <div class=\"container\"> 
@@ -27,11 +27,11 @@
     </body>
 </html>"))
 
-(test-xml+-parse-string test-xml+-html)
+(xml+-test-parse-string xml+-test-html)
 
 (ert-deftest test-queryall ()
   (equal
-   (xml+-query-all test-xml+-sample1
+   (xml+-query-all xml+-test-sample1
                    '((div :class "container") > (p)  (a))
                    )
    '((a
@@ -41,8 +41,8 @@
       ((href . "http://test1.html"))
       " convallis"))))
 
-(ert-deftest test-xml+-node-string ()
-  (equal (xml+-node-text (car test-xml+-sample1))
+(ert-deftest xml+-test-node-string ()
+  (equal (xml+-node-text (car xml+-test-sample1))
          "Nullam rutrum. Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi. Sed id ligula quis est convallis tempor. Praesent fermentum tempor tellus. Sed diam. Mauris mollis tincidunt felis. Mauris ac felis vel velit tristique imperdiet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."))
 
 (ert-run-tests-interactively t)
