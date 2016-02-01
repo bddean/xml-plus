@@ -2,7 +2,7 @@
 
 ;; Author: Ben Dean <bendean837@gmail.com>
 ;; Version: 0.0.0
-;; Package-Requires: ((emacs "24.4") (cl-lib "0.5") (dash "2.12.0"))
+;; Package-Requires: ((emacs "24.4") (dash "2.12.0"))
 ;; Keywords: xml, html
 ;; URL: https://github.com/bddean/xml-plus
 
