@@ -88,9 +88,7 @@ NODES matching QUERY."
               (when just-one (setq nodes-remaining nil)))
           (unless must-be-root
             (xml+-query--generic just-one (xml-node-children node) query result)))))
-    (if just-one
-        (car (reverse (cdr result)))
-      (reverse (cdr result)))))
+    (reverse (cdr result))))
 
 (defun xml+-query-all (nodes query &optional must-be-root)
 	"Search NODES for matches.
@@ -113,7 +111,7 @@ See also `xml-node-matches'"
 
 (defun xml+-query-first (nodes query &optional must-be-root)
 	"Like `xml+-query-all', but only return the first match."
-  (xml+-query--generic t nodes query must-be-root))
+  (car (xml+-query--generic t nodes query must-be-root)))
 
 (defun xml+-node-text (node)
   "Get the text of NODE"
